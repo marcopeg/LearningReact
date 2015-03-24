@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="PoliteJS Workspace Boilerplace">
+        <meta name="keywords" content="spa, single page application, workspace, politejs">
+        <meta name="author" content="PoliteJS :: Marco Pegoraro @ThePeg">
+
+        <title>ReactJS(x)</title>
+        
+        <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    </head>
+    <body>
+            
+        <div class="container">
+            <h1>ReactJS</h1>
+
+            <!-- React App Target -->
+            <!-- will be reconciled with the React application DOM description -->
+            <div id="app">{{react app}}</div>
+
+        </div>
+
+        <!-- ReactJS Library -->
+        <script src="./node_modules/react/dist/JSXTransformer.js"></script>
+        <script src="./node_modules/react/dist/react.js"></script>
+
+        <!-- HelloWorld App // enable JSX transcompiler -->
+        <script type="text/jsx">
+
+            // componentDefinition
+            var MyApp = React.createClass({
+                render: function() {
+                    return <h4>{this.props.text}</h4>;
+                }
+            });
+
+            // element = componentDefinition + properties
+            var myAppEl = <MyApp text="Hello World!" />;
+
+            // componentInstance = element + DOM
+            var myApp = React.render(
+                myAppEl, 
+                document.getElementById('app')
+            );
+            
+        </script>
+    </body>
+</html>

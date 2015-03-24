@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="PoliteJS Workspace Boilerplace">
+        <meta name="keywords" content="spa, single page application, workspace, politejs">
+        <meta name="author" content="PoliteJS :: Marco Pegoraro @ThePeg">
+
+        <title>ReactJS | Server Side Rendering</title>
+        
+        <link rel="stylesheet" type="text/css" href="./bootstrap.css">
+    </head>
+    <body>
+
+        <!-- app entry point -->
+        <div id="app-target" class="container">{{&react-app}}</div>
+
+        <script>
+        document.getElementById('app-target').addEventListener('DOMSubtreeModified', function(e) {
+            console.log('app-target has changed!');
+            console.log(e);
+        });
+        </script>
+
+        <!-- libraries -->
+        <script type="text/javascript" src="./react.js"></script>
+        <script type="text/javascript" src="./app-client.js"></script>
+    </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="PoliteJS Workspace Boilerplace">
+        <meta name="keywords" content="spa, single page application, workspace, politejs">
+        <meta name="author" content="PoliteJS :: Marco Pegoraro @ThePeg">
+
+        <title>ReactJS</title>
+        
+        <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    </head>
+    <body>
+            
+        <div class="container">
+            <h1>ReactJS</h1>
+
+            <!-- React App Target -->
+            <!-- will be reconciled with the React application DOM description -->
+            <div id="app-entry-point">{{react app}}</div>
+
+        </div>
+
+        
+        <!-- ReactJS Library -->
+        <script src="./node_modules/react/dist/react.js"></script>
+
+        <!-- HelloWorld App -->
+        <script type="text/javascript">
+
+            // componentDefinition
+            var MyApp__Component = React.createClass({
+                render: function() {
+                    return React.DOM.h4(null, this.props.text);
+                }
+            });
+
+            // element = componentDefinition + properties
+            var myApp__Element = React.createElement(MyApp__Component, {
+                text: 'Hello World!'
+            });
+
+            // componentInstance = element + DOM
+            var myApp = React.render(
+                myApp__Element, 
+                document.getElementById('app-entry-point')
+            );
+            
+        </script>
+    </body>
+</html>
