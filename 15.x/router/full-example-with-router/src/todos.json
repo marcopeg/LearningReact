@@ -1,0 +1,28 @@
+{
+    "todos" : [
+        {
+            "id" : 1,
+            "todo" : "Buy milk",
+            "is_done" : 0,
+            "labels" : ["home", "shopping"]
+        },
+        {
+            "id" : 2,
+            "todo" : "Vacuum the floor",
+            "is_done" : 1,
+            "labels" : ["home"]
+        },
+        {
+            "id" : 3,
+            "todo" : "Watch a movie",
+            "is_done" : 1,
+            "labels" : ["home", "relax"]
+        },
+        {
+            "id" : 4,
+            "todo" : "Book the hotel",
+            "is_done" : 0,
+            "labels" : ["relax"]
+        }
+    ]
+}
