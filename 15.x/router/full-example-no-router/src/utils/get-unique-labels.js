@@ -5,4 +5,9 @@ const labelsReducer = (labels, todo) => {
     return labels.concat(newLabels)
 }
 
-export const getUniqueLabels = todos => todos.reduce(labelsReducer, [])
+const labelsTransform = (label) => ({
+    value: label,
+    is_active: false
+})
+
+export const getUniqueLabels = todos => todos.reduce(labelsReducer, []).map(labelsTransform)

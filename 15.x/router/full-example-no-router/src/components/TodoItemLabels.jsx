@@ -1,15 +1,18 @@
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
 
-import Badge from 'react-bootstrap/lib/Badge'
-
 export const TodoItemLabels = ({ labels }) =>
-    <Badge pullRight>
+    <span className='pull-right' style={getLabelsStyle()}>
         {labels.join(', ')}
-    </Badge>
+    </span>
 
 TodoItemLabels.propTypes = {
     labels: PropTypes.arrayOf(PropTypes.string).isRequired
 }
+
+export const getLabelsStyle = () => ({
+    fontStyle: 'italic',
+    fontSize: '0.85em'
+})
 
 export default TodoItemLabels

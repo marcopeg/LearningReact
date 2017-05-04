@@ -4,9 +4,9 @@ import * as PropTypes from 'prop-types'
 import Badge from 'react-bootstrap/lib/Badge'
 
 export const FilterStatus = ({ value, is_active, handler }) =>
-    <Badge style={getBadgeStyle(is_active)} onClick={() => handler(value)}>
-        {value}
-    </Badge>
+    <div>
+        foo
+    </div>
 
 FilterStatus.propTypes = {
     value: PropTypes.string.isRequired,
