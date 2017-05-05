@@ -9,7 +9,6 @@ const publicPath = path.join(__dirname, './public')
 
 module.exports = {
     context: sourcePath,
-    devtool: 'source-map',
     entry: {
         'react-app': path.join(sourcePath, 'index.jsx')
     },
@@ -18,63 +17,72 @@ module.exports = {
         publicPath: '/',
         filename: '[name].js'
     },
-    devServer: {
-        contentBase: publicPath,
-        hot: true,
-        stats: {
-          warnings: false
-        },
-        historyApiFallback: {
-			disableDotRule: true
-		}
-    },
     resolve: {
         extensions: ['.js', '.jsx'],
         // Fix webpack's default behavior to not load packages with jsnext:main module
         // https://github.com/Microsoft/TypeScript/issues/11677
         mainFields: ['main']
     },
+    // externals: {
+    //     'react' : 'React'
+    // },
     module: {
         loaders: [
             {
                 test: /\.jsx?$/,
                 exclude: /(node_modules|bower_components)/,
                 use: [
-                    'react-hot-loader',
                     'babel-loader'
                 ]
             },
             {
                 test: /\.css$/,
                 exclude: '/node_modules/',
-                use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: true,
-                            localIdentName: '[name]__[local]--[hash:base64:5]',
+                use: ExtractTextPlugin.extract({
+                    fallback: [{
+                        loader: 'style-loader',
+                    }],
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: true,
+                                localIdentName: '[name]__[local]--[hash:base64:5]',
+                            },
                         }
-                    }
-                ]
+                    ],
+                }),
             },
             {
                 test: /\.styl/,
                 exclude: '/node_modules/',
-                use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: true,
-                            localIdentName: '[name]__[local]--[hash:base64:5]',
-                        }
-                    },
-                    'stylus-loader'
-                ]
+                use: ExtractTextPlugin.extract({
+                    fallback: [{
+                        loader: 'style-loader',
+                    }],
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: true,
+                                localIdentName: '[name]__[local]--[hash:base64:5]',
+                            },
+                        },
+                        'stylus-loader'
+                    ],
+                })
             }
         ]
     },
+    plugins: [
+        new ExtractTextPlugin('[name].css'),
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify('production')
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin()
+    ],
     node: {
         // workaround for webpack-dev-server issue
         // https://github.com/webpack/webpack-dev-server/issues/60#issuecomment-103411179
