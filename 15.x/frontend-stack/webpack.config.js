@@ -11,7 +11,7 @@ module.exports = {
     context: sourcePath,
     devtool: 'source-map',
     entry: {
-        'react-app': path.join(sourcePath, 'index.jsx')
+        'react-app': ['babel-polyfill', path.join(sourcePath, 'index.jsx')]
     },
     output: {
         path: outPath,
@@ -29,7 +29,7 @@ module.exports = {
 		}
     },
     resolve: {
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js', '.jsx', '.json'],
         // Fix webpack's default behavior to not load packages with jsnext:main module
         // https://github.com/Microsoft/TypeScript/issues/11677
         mainFields: ['main']
