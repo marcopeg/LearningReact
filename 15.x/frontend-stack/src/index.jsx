@@ -1,5 +1,3 @@
-// require("babel-core/register");
-// require("babel-polyfill");
 
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
@@ -37,13 +35,22 @@ if (process.env.NODE_ENV === 'production') {
 
 
 /**
+ * react-router
+ */
+
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+
+
+/**
  * app
  */
 import App from './containers/App'
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <Router>
+            <Route component={App} />
+        </Router>
     </Provider>,
     document.getElementById('react-app')
 )
