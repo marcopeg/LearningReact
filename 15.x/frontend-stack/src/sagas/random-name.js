@@ -8,7 +8,7 @@ function* changeName(action) {
 }
 
 function* mySaga() {
-  yield takeEvery("FOO", changeName);
+    yield takeEvery('setRandomName', changeName);
 }
 
 export default mySaga;
