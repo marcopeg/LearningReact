@@ -5,23 +5,24 @@ import * as ReactDOM from 'react-dom'
 /**
  * react-redux
  */
-import { createStore, applyMiddleware } from 'redux'
+import { applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
+import { createInjectStore as createStore } from 'redux-injector'
 import reduxThunk from 'redux-thunk'
-import createReduxSagaMiddleware from 'redux-saga'
 import reducers from './reducers/index'
-import configSagas from './sagas'
 
 let store
 const initialState = window.REDUX_INITIAL_STATE || {}
+
+import createReduxSagaMiddleware from 'redux-saga'
 const reduxSaga = createReduxSagaMiddleware()
+import configSagas from './sagas'
 
 // -- Production --
 if (process.env.NODE_ENV === 'production') {
     const middlewares = applyMiddleware(reduxThunk, reduxSaga)
     store = createStore(reducers, initialState, middlewares)
     configSagas(reduxSaga)
-    window.store = store
 
 // -- Development --
 } else {

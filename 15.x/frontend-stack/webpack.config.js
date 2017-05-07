@@ -41,7 +41,20 @@ module.exports = {
                 exclude: /(node_modules|bower_components)/,
                 use: [
                     'react-hot-loader',
-                    'babel-loader'
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: [
+                                'es2015',
+                                'react',
+                                'flow'
+                            ],
+                            plugins: [
+                                'transform-object-rest-spread',
+                                'syntax-dynamic-import'
+                            ]
+                        }
+                    }
                 ]
             },
             {
