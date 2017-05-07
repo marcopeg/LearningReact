@@ -1,12 +1,9 @@
 
-import { configSyncRoute } from '../async-route'
+import { configSyncRoute, configAsyncRoute } from '../async-route'
 
-import FooPage from './FooPage'
+// import FooPage from './FooPage'
 
-export default configSyncRoute({
-    component: FooPage,
-    reducers: {
-        foo: (state = {a:1}, action) => state,
-        ai: (state = 123) => state
-    }
-})
+// import route from './route'
+// export default configSyncRoute(route)
+
+export default configAsyncRoute(() => import('./route'))

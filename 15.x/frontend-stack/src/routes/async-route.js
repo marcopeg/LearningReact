@@ -28,13 +28,12 @@ class AsyncRouteWrapper extends React.Component {
             })
         }
 
-        if (!this.props.isReady) {
+        if (!this.props.isReady && !this.has_unmounted) {
             this.props.promise.then(onRouteLoad)
         }
     }
 
     componentWillUnmount () {
-        console.log('unmount')
         this.has_unmounted = true
     }
 
@@ -46,7 +45,7 @@ class AsyncRouteWrapper extends React.Component {
 }
 
 /**
- *
+ * Async Route Definition
  */
 export const configAsyncRoute = (loadRouteChunk, fallback = DefaultFallback) => {
     let isReady = false
@@ -79,14 +78,26 @@ export const configAsyncRoute = (loadRouteChunk, fallback = DefaultFallback) => 
     }
 }
 
-export const configSyncRoute = route => {
+/**
+ * Synchronous Route Definition
+ */
+export const configSyncRoute = (route, fallback = DefaultFallback) => {
     let hasFired = false
     return props => {
         if (!hasFired) {
+            hasFired = true
             Object.keys(route.reducers).map(key => {
                 injectReducer(key, route.reducers[key])
             })
         }
-        return React.createElement(route.component)
+
+        return React.createElement(AsyncRouteWrapper, {
+            isReady: true,
+            promise: null,
+            component: route.component,
+            fallback
+        })
+        // return React.createElement(route.component)
+        // return <div>foo</div>
     }
 }
