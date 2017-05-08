@@ -43,15 +43,26 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 
 /**
+ * material-ui
+ * (http://www.material-ui.com/)
+ */
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import injectTapEventPlugin from 'react-tap-event-plugin'
+injectTapEventPlugin()
+
+
+/**
  * app
  */
 import App from './containers/App'
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Router>
-            <Route component={App} />
-        </Router>
-    </Provider>,
+    <MuiThemeProvider>
+        <Provider store={store}>
+            <Router>
+                <Route component={App} />
+            </Router>
+        </Provider>
+    </MuiThemeProvider>,
     document.getElementById('react-app')
 )
