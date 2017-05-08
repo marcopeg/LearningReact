@@ -1,5 +1,6 @@
 import React from 'react'
 import { injectReducer } from 'redux-injector'
+import { injectSaga } from 'redux-sagas-injector'
 
 const DefaultComponent = () => <div>async component</div>
 const DefaultFallback = () => <div>async loading</div>
@@ -69,6 +70,9 @@ export const configAsyncRoute = (loadRouteChunk, fallback = DefaultFallback) => 
                 })
 
                 // inject sagas
+                Object.keys(route.sagas || {}).map(key => {
+                    injectSaga(key, route.sagas[key])
+                })
             })
         }
 
