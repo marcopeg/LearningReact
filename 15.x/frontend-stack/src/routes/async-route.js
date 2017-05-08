@@ -46,6 +46,7 @@ class AsyncRouteWrapper extends React.Component {
 
 /**
  * Async Route Definition
+ * allows to dynamically inject reducers and sagas into the application
  */
 export const configAsyncRoute = (loadRouteChunk, fallback = DefaultFallback) => {
     let isReady = false
@@ -54,7 +55,6 @@ export const configAsyncRoute = (loadRouteChunk, fallback = DefaultFallback) => 
 
     // Route{render} handler that is given to react-router
     return props => {
-
         if (promise === null) {
             promise = loadRouteChunk()
 
@@ -63,9 +63,12 @@ export const configAsyncRoute = (loadRouteChunk, fallback = DefaultFallback) => 
                 route = route.default ? route.default : route
                 component = route.component
 
-                Object.keys(route.reducers).map(key => {
+                // inject reducers
+                Object.keys(route.reducers || {}).map(key => {
                     injectReducer(key, route.reducers[key])
                 })
+
+                // inject sagas
             })
         }
 
@@ -80,24 +83,12 @@ export const configAsyncRoute = (loadRouteChunk, fallback = DefaultFallback) => 
 
 /**
  * Synchronous Route Definition
+ * at the moment it triggers a state update warning if we try to
+ * inject new reducers. This is not a problem as synchronous routes should
+ * not define reducers or sagas by themselves
  */
 export const configSyncRoute = (route, fallback = DefaultFallback) => {
-    let hasFired = false
     return props => {
-        if (!hasFired) {
-            hasFired = true
-            Object.keys(route.reducers).map(key => {
-                injectReducer(key, route.reducers[key])
-            })
-        }
-
-        return React.createElement(AsyncRouteWrapper, {
-            isReady: true,
-            promise: null,
-            component: route.component,
-            fallback
-        })
-        // return React.createElement(route.component)
-        // return <div>foo</div>
+        return React.createElement(route.component)
     }
 }
